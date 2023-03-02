@@ -1,49 +1,39 @@
 package application;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Program {
 
 	public static void main(String[] args) {
 
-		// Utilizando o fileReader e BufferedReader
+		// Utilizando o FileWriter e o BufferedWriter
+		Scanner sc = new Scanner(System.in);
 
-		String path = "C:\\Users\\kngat\\OneDrive\\Documentos\\GitHub\\TrabalhandoComArquivos-Java\\ArquivoParaSerLido.txt";
-		FileReader fr = null;
-		BufferedReader br = null;
+		String path = "C:\\Users\\kngat\\OneDrive\\Documentos\\GitHub\\TrabalhandoComArquivos-Java\\CriandoArquivo.txt";
 		
-		try {
-			
-			fr = new FileReader(path);
-			br = new BufferedReader(fr);
-			
-			// ou
-			// br = new BufferedReader(new FileReader(path));
-			
-			String line = br.readLine();
-			
-			while (line != null) {
-				System.out.println(line);
-				line = br.readLine();
-			}
-		}
-		catch (IOException e ) {
-			System.out.println("Error: " + e.getMessage());
-		}
-		finally {
-			try {	
-				if (br != null) {
-					br.close();
-				}
-				if (fr != null) {
-					fr.close();
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, true))){
+			char resp = ' ';
+			while (resp != 'n'){
+				
+				System.out.print("Insira o texto: ");
+				String line = sc.nextLine();
+				
+				System.out.print("Quer continuar? ");
+				resp = sc.nextLine().charAt(0);
+
+				bw.write(line);
+				bw.newLine();
+				
+				if (resp == 'n') {
+					break;
 				}
 			}
-			catch (IOException e ) {
-				System.out.println("Error: " + e.getMessage());
-			}
+		}
+		catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }
