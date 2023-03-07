@@ -7,33 +7,20 @@ public class Program {
 
 	public static void main(String[] args) {
 
-		// Manipulando arquivos
-		
+		// Informações do caminho do arquivo
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.print("Enter a folder path: ");
-		String strPath = sc.nextLine().toLowerCase();
+		System.out.print("Enter a file path: ");
+		String strPath = sc.nextLine();
+		
 		File path = new File(strPath);
 		
-		File[] folders = path.listFiles(File::isDirectory);
-		System.out.println("FOLDERS:");
-		
-		for (File folder : folders) {
-			System.out.println(folder);
-		}
-		
-		File[] files = path.listFiles(File::isFile);
-		System.out.println("FILES:");
-		
-		for (File file : files) {
-			
-			System.out.println(file);
-			
-		}
-		
-		boolean success = new File(strPath + "\\Criado").mkdir();
-		System.out.println("Directory created  successfully: " + success);
-		
+		System.out.println("getName: " + path.getName());
+		System.out.println("getParent: " + path.getParent());
+		System.out.println("getPath: " + path.getPath());
+		System.out.println("getAbsolutePath: " + path.getAbsolutePath());
+		System.out.println("getParentFile: " + path.getParentFile());
+
 		sc.close();
 	}
 }
