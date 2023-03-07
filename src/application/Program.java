@@ -1,39 +1,39 @@
 package application;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.File;
 import java.util.Scanner;
 
 public class Program {
 
 	public static void main(String[] args) {
 
-		// Utilizando o FileWriter e o BufferedWriter
-		Scanner sc = new Scanner(System.in);
-
-		String path = "C:\\Users\\kngat\\OneDrive\\Documentos\\GitHub\\TrabalhandoComArquivos-Java\\CriandoArquivo.txt";
+		// Manipulando arquivos
 		
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, true))){
-			char resp = ' ';
-			while (resp != 'n'){
-				
-				System.out.print("Insira o texto: ");
-				String line = sc.nextLine();
-				
-				System.out.print("Quer continuar? ");
-				resp = sc.nextLine().charAt(0);
-
-				bw.write(line);
-				bw.newLine();
-				
-				if (resp == 'n') {
-					break;
-				}
-			}
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("Enter a folder path: ");
+		String strPath = sc.nextLine().toLowerCase();
+		File path = new File(strPath);
+		
+		File[] folders = path.listFiles(File::isDirectory);
+		System.out.println("FOLDERS:");
+		
+		for (File folder : folders) {
+			System.out.println(folder);
 		}
-		catch (IOException e) {
-			e.printStackTrace();
+		
+		File[] files = path.listFiles(File::isFile);
+		System.out.println("FILES:");
+		
+		for (File file : files) {
+			
+			System.out.println(file);
+			
 		}
+		
+		boolean success = new File(strPath + "\\Criado").mkdir();
+		System.out.println("Directory created  successfully: " + success);
+		
+		sc.close();
 	}
 }
